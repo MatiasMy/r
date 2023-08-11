@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/uutiset.css" type="text/css">
 </head>
 <body>
-<script>
+<!-- <script>
     function confirmDelete(id) {
         const answer = confirm("Poistetaanko uutinen?");
         if(!answer){
@@ -15,6 +15,7 @@
         return answer;
     }
 </script>
+!-->
     <header>
         <h1>Prosessialan Laitetietokanta</h1>
     </header>
@@ -28,7 +29,7 @@
            <li class="navbutton"><a href="/register">Rekisteröidy</a></li>
         <?php else: ?>
            <!-- <li class="navbutton"><a href="/add_article">Uusi uutinen</a></li> !-->
-           <li class="navbutton"><a href="/logout">Logout</a></li>
+           <li class="navbutton"><a href="/logout">Kirjaudu Ulos</a></li>
         <?php endif ?>
 
     </ul>
