@@ -21,16 +21,18 @@ function registerController(){
 }
 
 function loginController(){
-    if(isset($_POST['username'], $_POST['password'])){
-        $username = cleanUpInput($_POST['username']);
-        $password = cleanUpInput($_POST['password']);
+    if(isset($_POST['nimi'], $_POST["sposti"], $_POST['salasana'])){
+        $nimi = cleanUpInput($_POST['nimi']);
+        $sposti = cleanUpInput($_POST["sposti"]);
+        $salasana = cleanUpInput($_POST['salasana']);
   
-        $result = login($username, $password);
+        $result = login($nimi, $sposti, $salasana);
         if($result){
-            $_SESSION['username'] = $result['username'];
-            $_SESSION['userid'] = $result['userid'];
+            $_SESSION['nimi'] = $result['nimi'];
+            $_SESSION["sposti"] = $result["sposti"];
+            $_SESSION['kayttajaID'] = $result['kayttajaID'];    
             $_SESSION['session_id'] = session_id();
-            header("Location: /"); 
+            header("Location: /");
         } else {
             require "views/login.view.php";
         }
@@ -38,6 +40,7 @@ function loginController(){
         require "views/login.view.php";
     }
 }
+
 
 function logoutController(){
     session_unset(); //poistaa kaikki muuttujat
