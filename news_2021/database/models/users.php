@@ -18,10 +18,17 @@ function login($nimi, $sposti, $salasana){
     $user = $stm->fetch(PDO::FETCH_ASSOC);
     #$hashedpassword = $user["salasana"];
     $hashedpassword = password_hash($salasana, PASSWORD_DEFAULT);
-    echo "ok";
 
     if($hashedpassword && password_verify($salasana, $hashedpassword))
         return $user;
     else 
         return false;
+}
+function getUsers($sposti){
+    $pdo = connectDB();
+    $sql = "SELECT * FROM kayttaja WHERE sposti=?";
+    $stm= $pdo->prepare($sql);
+    $stm->execute([$sposti]);
+    $all = $stm->fetch(PDO::FETCH_ASSOC);
+    return $all;
 }

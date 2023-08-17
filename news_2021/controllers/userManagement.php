@@ -25,22 +25,31 @@ function loginController(){
         $nimi = cleanUpInput($_POST['nimi']);
         $sposti = cleanUpInput($_POST["sposti"]);
         $salasana = cleanUpInput($_POST['salasana']);
-  
-        $result = login($nimi, $sposti, $salasana);
-        if($result){
+        $kayttaja = getUsers($sposti);
+
+        $result = login($nimi, $sposti, $salasana);#oppilaan ja opettaan kirjautuminen johtaa vielä samaan paikkaan, kun oppilaalle ja opettajalle on omat näkymät lisää ne alle
+
+        if ($result && $kayttaja['opettaja'] == "opettaja"){ #opettajan kirjautuminen
+            $_SESSION['nimi'] = $result['nimi'];
+            $_SESSION["sposti"] = $result["sposti"];
+            $_SESSION['kayttajaID'] = $result['kayttajaID']; 
+            $_SESSION['session_id'] = session_id();
+            header("Location: /");  #lisää tähän mihin opettaja ohjataan kirjautumisen jälkeen
+        }
+        else if($result){ #oppilaan kirjautuminen
             $_SESSION['nimi'] = $result['nimi'];
             $_SESSION["sposti"] = $result["sposti"];
             $_SESSION['kayttajaID'] = $result['kayttajaID'];    
             $_SESSION['session_id'] = session_id();
-            header("Location: /");
-        } else {
+            header("Location: /");  #lisää tähän mihin oppilas ohjataan kirjautumisen jälkeen
+        } 
+        else {
             require "views/login.view.php";
         }
     } else {
         require "views/login.view.php";
     }
 }
-
 
 function logoutController(){
     session_unset(); //poistaa kaikki muuttujat

@@ -1,3 +1,3 @@
-<footer class="centeredtext">Tredun datanomit ovat parhaita</footer>
+<footer class="centeredtext">Tredun datnomit ovat parhaita</footer>
 </body>
 </html>
