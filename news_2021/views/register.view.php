@@ -4,14 +4,12 @@
 
 <div class="inputarea">
 <form  action="/register" method="post">
-    <label for="fname">Etunimi:</label> 
-    <input id="fname" type="text" name="firstname" maxlength=30>
-    <label for="lname">Sukunimi:</label>         
-    <input id="lname" type="text" name="lastname" maxlength=30>
-    <label for="uname">Käyttäjänimi:</label>
-    <input id="uname" type="text" name="username" maxlength=30>
-    <label for="pword">Salasana:</label>
-    <input id="pword" type="password" name="password" maxlength=30>
+    <label for="nimi">Etunimi:</label> 
+    <input id="nimi" type="text" name="nimi" maxlength=30>
+    <label for="sposti">Sähköposti:</label>
+    <input type="email" name="sposti" id="sposti" maxlength=30>
+    <label for="salasana">Salasana:</label>
+    <input id="salasana" type="password" name="salasana" maxlength=30>
     <input id="sendbutton" type="submit" value="Lähetä">
 </form>
 </div>
