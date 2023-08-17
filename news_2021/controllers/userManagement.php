@@ -59,3 +59,4 @@ function logoutController(){
     header("Location: /login"); // forward eli uudelleenohjaus
     die();
 }
+
