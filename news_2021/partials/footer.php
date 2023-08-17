@@ -1,3 +1,3 @@
-<footer class="centeredtext">HOITUU</footer>
+<footer class="centeredtext"></footer>
 </body>
 </html>

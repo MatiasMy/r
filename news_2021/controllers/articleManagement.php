@@ -4,7 +4,6 @@ require_once 'libraries/cleaners.php';
 
 function viewArticlesController(){
     #$allnews = getAllArticles();
-    echo "hello world";
     require "views/articles.view.php";    
 }
 
