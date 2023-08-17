@@ -10,16 +10,25 @@ function addUser($firstname, $lastname, $username, $password){
     return $stm->execute($data);
 }
 
-function login($username, $password){
+function login($nimi, $sposti, $salasana){
     $pdo = connectDB();
-    $sql = "SELECT * FROM users WHERE username=?";
+    $sql = "SELECT * FROM kayttaja WHERE nimi=?";
     $stm= $pdo->prepare($sql);
-    $stm->execute([$username]);
+    $stm->execute([$nimi]);
     $user = $stm->fetch(PDO::FETCH_ASSOC);
-    $hashedpassword = $user["password"];
+    #$hashedpassword = $user["salasana"];
+    $hashedpassword = password_hash($salasana, PASSWORD_DEFAULT);
 
-    if($hashedpassword && password_verify($password, $hashedpassword))
+    if($hashedpassword && password_verify($salasana, $hashedpassword))
         return $user;
     else 
         return false;
+}
+function getUsers($sposti){
+    $pdo = connectDB();
+    $sql = "SELECT * FROM kayttaja WHERE sposti=?";
+    $stm= $pdo->prepare($sql);
+    $stm->execute([$sposti]);
+    $all = $stm->fetch(PDO::FETCH_ASSOC);
+    return $all;
 }

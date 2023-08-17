@@ -21,17 +21,29 @@ function registerController(){
 }
 
 function loginController(){
-    if(isset($_POST['username'], $_POST['password'])){
-        $username = cleanUpInput($_POST['username']);
-        $password = cleanUpInput($_POST['password']);
-  
-        $result = login($username, $password);
-        if($result){
-            $_SESSION['username'] = $result['username'];
-            $_SESSION['userid'] = $result['userid'];
+    if(isset($_POST['nimi'], $_POST["sposti"], $_POST['salasana'])){
+        $nimi = cleanUpInput($_POST['nimi']);
+        $sposti = cleanUpInput($_POST["sposti"]);
+        $salasana = cleanUpInput($_POST['salasana']);
+        $kayttaja = getUsers($sposti);
+
+        $result = login($nimi, $sposti, $salasana);#oppilaan ja opettaan kirjautuminen johtaa vielä samaan paikkaan, kun oppilaalle ja opettajalle on omat näkymät lisää ne alle
+
+        if ($result && $kayttaja['opettaja'] == "opettaja"){ #opettajan kirjautuminen
+            $_SESSION['nimi'] = $result['nimi'];
+            $_SESSION["sposti"] = $result["sposti"];
+            $_SESSION['kayttajaID'] = $result['kayttajaID']; 
             $_SESSION['session_id'] = session_id();
-            header("Location: /"); 
-        } else {
+            header("Location: /");  #lisää tähän mihin opettaja ohjataan kirjautumisen jälkeen
+        }
+        else if($result){ #oppilaan kirjautuminen
+            $_SESSION['nimi'] = $result['nimi'];
+            $_SESSION["sposti"] = $result["sposti"];
+            $_SESSION['kayttajaID'] = $result['kayttajaID'];    
+            $_SESSION['session_id'] = session_id();
+            header("Location: /");  #lisää tähän mihin oppilas ohjataan kirjautumisen jälkeen
+        } 
+        else {
             require "views/login.view.php";
         }
     } else {
@@ -47,3 +59,4 @@ function logoutController(){
     header("Location: /login"); // forward eli uudelleenohjaus
     die();
 }
+
