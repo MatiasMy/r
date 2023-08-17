@@ -16,6 +16,6 @@ function cleanUpOutput($useroutput){
     $output = trim($useroutput);
     $cleanoutput = htmlspecialchars($output);
     return $cleanoutput;
-}
+} 
 
 

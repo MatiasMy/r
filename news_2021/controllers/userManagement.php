@@ -2,23 +2,23 @@
 require_once "database/models/users.php";
 require_once 'libraries/cleaners.php';
 
-function registerController(){
-    if(isset($_POST['lastname'], $_POST['firstname'], $_POST['username'], $_POST['password'])){
-        $lastname = cleanUpInput($_POST['lastname']);
-        $firstname = cleanUpInput($_POST['firstname']);
-        $username = cleanUpInput($_POST['username']);
-        $password = cleanUpInput($_POST['password']);
-
+function registerController() {
+    if (isset($_POST['nimi'], $_POST['sposti'], $_POST['salasana'])) {
+        $firstname = cleanUpInput($_POST['nimi']);
+        $lastname = cleanUpInput($_POST['sposti']);
+        $password = cleanUpInput($_POST['salasana']);
+        $ryhmaID = isset($_POST['ryhmaID']) ? intval($_POST['ryhmaID']) : 0;
         try {
-            addUser($firstname, $lastname, $username, $password);
+            addUser($firstname, $lastname, $password, $ryhmaID);
             header("Location: /login"); 
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
             echo "Virhe tietokantaan tallennettaessa: " . $e->getMessage();
         }
     } else {
         require "views/register.view.php";
     }
 }
+
 
 function loginController(){
     if(isset($_POST['nimi'], $_POST["sposti"], $_POST['salasana'])){
